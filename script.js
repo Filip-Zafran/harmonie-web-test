@@ -87,6 +87,97 @@ const practitioners = [
         services: ['Osteopathy', 'Naturopathy', 'Women\'s Health', 'Pelvic Floor Check-up', 'Pelvic Floor Training', 'Menopause Support', 'Mental Health Care'],
         specialization: 'Osteopathy & Women\'s Health',
         categories: ['Osteopathy', 'Women\'s Health']
+    },
+    {
+        name: 'Deniz',
+        image: 'images/deniz.png',
+        services: ['Full Body Massage', 'Trigger Point Massage', 'Sports Massage', 'Manual Therapy Techniques & Pain Point Treatment'],
+        specialization: 'Massage Therapy',
+        categories: ['Massage']
+    },
+    {
+        name: 'Tina',
+        image: 'images/tina.png',
+        services: ['Osteopathy for Adults', 'Osteopathy During Pregnancy', 'Osteopathy for Babies and Children', 'Treatment for Scars'],
+        specialization: 'Osteopathy',
+        categories: ['Osteopathy', 'Women\'s Health']
+    },
+    {
+        name: 'Fernando',
+        image: 'images/fernando.png',
+        services: ['Humanistic–Transpersonal Psychology', 'Psychological Counseling', 'Emotional Freedom Technique (EFT – Tapping)', 'Ra-Haraktys Reiki', 'Shamanic Breathwork (Andean Tradition)', 'Shamanic & Vedic Practices', 'Life & Business Coaching'],
+        specialization: 'Psychology & Coaching',
+        categories: ['Talking Therapy']
+    },
+    {
+        name: 'Agnieszka',
+        image: 'images/agnieszka.png',
+        services: ['Full-Body Massage', 'Back & Neck Massage', 'Foot Reflexology', 'Lomi Lomi Nui Massage', 'Sound Therapy', 'Wellness & Sound Massage', 'Alexander Technique Bodywork'],
+        specialization: 'Massage & Sound Therapy',
+        categories: ['Massage']
+    },
+    {
+        name: 'Ulrike',
+        image: 'images/ulrike.png',
+        services: ['Couples Therapy', 'Couples Coaching'],
+        specialization: 'Couples Therapy & Coaching',
+        categories: ['Talking Therapy']
+    },
+    {
+        name: 'Ilke',
+        image: 'images/ilke.png',
+        services: ['Coaching', 'Reiki'],
+        specialization: 'Coaching & Reiki',
+        categories: ['Talking Therapy']
+    },
+    {
+        name: 'Chin Ling',
+        image: 'images/chinling.png',
+        services: ['Signature Full Body Massage', 'Deep Tissue Upper Body & Neck', 'Face & Neck Massage', 'Lymphatic Drainage Massage', 'Lomi Lomi Nui Massage (Women Only)', 'Foot Reflexology', 'Pregnancy Massage'],
+        specialization: 'Massage Therapy',
+        categories: ['Massage', 'Women\'s Health']
+    },
+    {
+        name: 'Žaneta',
+        image: 'images/zaneta.png',
+        services: ['Balinese Massage', 'Hot Stone Massage', 'Zenthai Shiatsu'],
+        specialization: 'Massage Therapy',
+        categories: ['Massage']
+    },
+    {
+        name: 'Susan',
+        image: 'images/susan.png',
+        services: ['Psychotherapeutic Support for Women', 'Pregnancy & Perinatal Mental Health', 'Trauma-sensitive Therapy'],
+        specialization: 'Women\'s Mental Health',
+        categories: ['Talking Therapy', 'Women\'s Health']
+    },
+    {
+        name: 'Maria',
+        image: 'images/maria.png',
+        services: ['Full Body Massage'],
+        specialization: 'Massage Therapy',
+        categories: ['Massage']
+    },
+    {
+        name: 'Nadine',
+        image: 'images/nadine.png',
+        services: ['Somatic Experiencing®', 'Coaching', 'NLP (Neuro-Linguistic Programming)', 'Nervous System Regulation', 'Yoga', 'Mindfulness Training', 'Meditation'],
+        specialization: 'Somatic & Mind Coaching',
+        categories: ['Talking Therapy']
+    },
+    {
+        name: 'Martina',
+        image: 'images/martina.png',
+        services: ['Business Coaching'],
+        specialization: 'Business Coaching',
+        categories: ['Talking Therapy']
+    },
+    {
+        name: 'Nico',
+        image: 'images/nico.png',
+        services: ['Full Body Massage'],
+        specialization: 'Massage Therapy',
+        categories: ['Massage']
     }
 ];
 
