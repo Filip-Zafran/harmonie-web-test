@@ -809,7 +809,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 25px;
+    margin-bottom: 0;
     justify-content: center;
     padding: 15px;
     background: var(--bg-light);
