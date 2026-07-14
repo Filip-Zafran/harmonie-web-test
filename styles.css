@@ -619,16 +619,20 @@ body {
 
 /* Subcategory Filter Container */
 .subcategory-filter-container {
-    width: 100%;
-    margin: 15px 0 !important;
-    padding: 15px !important;
+    width: 100% !important;
+    margin: 20px 0 !important;
+    padding: 20px !important;
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    position: relative;
+    position: relative !important;
     z-index: 999 !important;
-    background: var(--bg-light) !important;
+    background: #ffcccc !important;
+    border: 3px solid red !important;
     border-radius: 8px !important;
+    clear: both !important;
+    float: none !important;
+    overflow: visible !important;
 }
 
 .subcategory-filters {
