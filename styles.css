@@ -651,13 +651,13 @@ body {
 
 .subcategory-filter-btn {
     padding: 10px 16px !important;
-    border: 2px solid var(--primary-color) !important;
+    border: 2px solid #e74c3c !important;
     background: var(--white) !important;
     border-radius: 20px !important;
     cursor: pointer !important;
     font-size: 13px !important;
     font-weight: 600 !important;
-    color: var(--primary-color) !important;
+    color: #e74c3c !important;
     transition: all 0.3s !important;
     display: inline-block !important;
     margin: 3px !important;
@@ -666,9 +666,8 @@ body {
 }
 
 .subcategory-filter-btn:hover {
-    border-color: #e74c3c !important;
-    color: var(--white) !important;
     background: #e74c3c !important;
+    color: var(--white) !important;
 }
 
 .subcategory-filter-btn.active {
