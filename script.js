@@ -805,6 +805,9 @@ function showAvailablePractitioners(selectedDate) {
         document.body.appendChild(panel);
     }
 
+    // Get all unique categories from available practitioners
+    const allCategories = [...new Set(availablePractitioners.flatMap(p => p.categories))];
+
     // Build HTML for available practitioners
     let html = `
         <div class="practitioners-panel-header">
@@ -814,7 +817,18 @@ function showAvailablePractitioners(selectedDate) {
             </div>
             <button class="close" onclick="closePractitionersPanel()">×</button>
         </div>
-        <div class="practitioners-panel-content">
+        <div class="category-filters">
+    `;
+
+    // Add category filter buttons
+    html += `<button class="category-filter-btn active" onclick="filterPractitionersByCategory(null, '${selectedDate.toISOString()}')">All</button>`;
+    allCategories.forEach(category => {
+        html += `<button class="category-filter-btn" onclick="filterPractitionersByCategory('${category}', '${selectedDate.toISOString()}')">${category}</button>`;
+    });
+
+    html += `
+        </div>
+        <div class="practitioners-panel-content" id="practitionersContent">
     `;
 
     if (availablePractitioners.length === 0) {
@@ -839,6 +853,54 @@ function showAvailablePractitioners(selectedDate) {
     html += `</div>`;
     panel.innerHTML = html;
     panel.classList.remove('hidden');
+}
+
+// Filter practitioners by category
+function filterPractitionersByCategory(category, dateISOString) {
+    const serviceName = document.getElementById('serviceBookingService').textContent;
+    const currentPractitioner = document.getElementById('serviceBookingPractitioner').textContent;
+    const selectedDate = new Date(dateISOString);
+
+    // Find all practitioners who offer this service (exclude current one)
+    let practitioners_to_show = practitioners.filter(p =>
+        p.services.includes(serviceName) && p.name !== currentPractitioner
+    );
+
+    // Filter by category if specified
+    if (category) {
+        practitioners_to_show = practitioners_to_show.filter(p => p.categories.includes(category));
+    }
+
+    // Update active button styling
+    document.querySelectorAll('.category-filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if ((category === null && btn.textContent === 'All') || btn.textContent === category) {
+            btn.classList.add('active');
+        }
+    });
+
+    // Update practitioners content
+    let html = '';
+    if (practitioners_to_show.length === 0) {
+        html = `<div class="no-available">No practitioners available in this category.</div>`;
+    } else {
+        practitioners_to_show.forEach(practitioner => {
+            html += `
+                <div class="practitioner-availability-card">
+                    <div class="card-image">
+                        <img src="/${practitioner.image}" alt="${practitioner.name}">
+                    </div>
+                    <div class="card-details">
+                        <h4>${practitioner.name}</h4>
+                        <p class="specialization">${practitioner.specialization}</p>
+                        <button class="btn-select" onclick="selectPractitioner('${practitioner.name}')">Select</button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    document.getElementById('practitionersContent').innerHTML = html;
 }
 
 function closePractitionersPanel() {

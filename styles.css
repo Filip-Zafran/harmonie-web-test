@@ -920,6 +920,44 @@ body {
     color: var(--text-dark);
 }
 
+.category-filters {
+    padding: 15px;
+    border-bottom: 2px solid #eee;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    position: sticky;
+    top: 130px;
+    background: var(--white);
+}
+
+.category-filter-btn {
+    flex: 1;
+    min-width: 80px;
+    padding: 10px 12px;
+    border: 2px solid #ddd;
+    background: var(--white);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dark);
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.category-filter-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.category-filter-btn.active {
+    background: var(--primary-color);
+    color: var(--white);
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(196, 165, 123, 0.3);
+}
+
 .practitioners-panel-content {
     padding: 15px;
 }
