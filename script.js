@@ -272,12 +272,25 @@ function renderPractitionersList() {
 
 function openPractitionerProfile(practitionerName) {
     const profilePageMap = {
-        'Melanie': 'melanie.html',
-        'Noemi': 'noemi.html',
-        'Chloe': 'chloe.html',
-        'Robert': 'robert.html',
-        'Jelena': 'jelena.html',
-        'Verena': 'verena.html'
+        'Melanie': 'practitioners-pages/melanie.html',
+        'Noemi': 'practitioners-pages/noemi.html',
+        'Chloe': 'practitioners-pages/chloe.html',
+        'Robert': 'practitioners-pages/robert.html',
+        'Jelena': 'practitioners-pages/jelena.html',
+        'Verena': 'practitioners-pages/verena.html',
+        'Deniz': 'practitioners-pages/deniz.html',
+        'Tina': 'practitioners-pages/tina.html',
+        'Fernando': 'practitioners-pages/fernando.html',
+        'Agnieszka': 'practitioners-pages/agnieszka.html',
+        'Ulrike': 'practitioners-pages/ulrike.html',
+        'Ilke': 'practitioners-pages/ilke.html',
+        'Chin Ling': 'practitioners-pages/chin-ling.html',
+        'Žaneta': 'practitioners-pages/zaneta.html',
+        'Susan': 'practitioners-pages/susan.html',
+        'Maria': 'practitioners-pages/maria.html',
+        'Nadine': 'practitioners-pages/nadine.html',
+        'Martina': 'practitioners-pages/martina.html',
+        'Nico': 'practitioners-pages/nico.html'
     };
 
     const profilePage = profilePageMap[practitionerName];
