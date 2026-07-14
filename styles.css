@@ -852,6 +852,141 @@ body {
     animation: modalSlideIn 0.3s ease;
 }
 
+/* Practitioners Availability Panel */
+.practitioners-availability-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 380px;
+    height: 100vh;
+    background: var(--white);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+    z-index: 1051;
+    animation: slideInRight 0.3s ease;
+}
+
+.practitioners-availability-panel.hidden {
+    display: none;
+}
+
+.practitioners-panel-header {
+    padding: 20px;
+    border-bottom: 2px solid #eee;
+    position: sticky;
+    top: 0;
+    background: var(--white);
+}
+
+.practitioners-panel-header h3 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.availability-date {
+    margin: 0 0 15px 0;
+    font-size: 13px;
+    color: #999;
+    font-weight: 600;
+}
+
+.practitioners-panel-header .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.practitioners-panel-content {
+    padding: 15px;
+}
+
+.no-available {
+    padding: 40px 20px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}
+
+.practitioner-availability-card {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    transition: all 0.3s;
+}
+
+.practitioner-availability-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.practitioner-availability-card .card-image {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--primary-color);
+}
+
+.practitioner-availability-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-details h4 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.card-details .specialization {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    color: #999;
+    font-weight: 500;
+}
+
+.btn-select {
+    padding: 8px 16px;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 12px;
+    transition: all 0.3s;
+    align-self: flex-start;
+}
+
+.btn-select:hover {
+    background: #b8915a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(196, 165, 123, 0.3);
+}
+
 .service-booking-modal.hidden {
     display: none;
 }

@@ -779,11 +779,78 @@ function generateServiceCalendar() {
     window.selectServiceDate = function(date) {
         selectedDate = date;
         drawCalendar(currentDate);
-        // Show confirmation or next step
-        alert(`Selected: ${date.toLocaleDateString()} - Ready to confirm booking`);
+        // Show available practitioners for this service and date
+        showAvailablePractitioners(date);
     };
 
     drawCalendar(currentDate);
+}
+
+// Show available practitioners for selected service and date
+function showAvailablePractitioners(selectedDate) {
+    const serviceName = document.getElementById('serviceBookingService').textContent;
+    const currentPractitioner = document.getElementById('serviceBookingPractitioner').textContent;
+
+    // Find all practitioners who offer this service (exclude current one)
+    const availablePractitioners = practitioners.filter(p =>
+        p.services.includes(serviceName) && p.name !== currentPractitioner
+    );
+
+    // Create or get the practitioners panel
+    let panel = document.getElementById('practitionersPanel');
+    if (!panel) {
+        panel = document.createElement('div');
+        panel.id = 'practitionersPanel';
+        panel.className = 'practitioners-availability-panel';
+        document.body.appendChild(panel);
+    }
+
+    // Build HTML for available practitioners
+    let html = `
+        <div class="practitioners-panel-header">
+            <h3>Available Practitioners</h3>
+            <p class="availability-date">${selectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            <button class="close" onclick="closePractitionersPanel()">×</button>
+        </div>
+        <div class="practitioners-panel-content">
+    `;
+
+    if (availablePractitioners.length === 0) {
+        html += `<div class="no-available">No other practitioners available for this service and date.</div>`;
+    } else {
+        availablePractitioners.forEach(practitioner => {
+            html += `
+                <div class="practitioner-availability-card">
+                    <div class="card-image">
+                        <img src="/${practitioner.image}" alt="${practitioner.name}">
+                    </div>
+                    <div class="card-details">
+                        <h4>${practitioner.name}</h4>
+                        <p class="specialization">${practitioner.specialization}</p>
+                        <button class="btn-select" onclick="selectPractitioner('${practitioner.name}')">Select</button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    html += `</div>`;
+    panel.innerHTML = html;
+    panel.classList.remove('hidden');
+}
+
+function closePractitionersPanel() {
+    const panel = document.getElementById('practitionersPanel');
+    if (panel) {
+        panel.classList.add('hidden');
+    }
+}
+
+function selectPractitioner(practitionerName) {
+    const selectedDate = document.querySelector('.availability-date')?.textContent;
+    alert(`Booked with ${practitionerName} for ${selectedDate}`);
+    closeServiceBookingModal();
+    closePractitionersPanel();
 }
 
 // Close modal on background click
