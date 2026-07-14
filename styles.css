@@ -697,32 +697,38 @@ body {
 .calendar-filter {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 8px;
+    margin-bottom: 25px;
     justify-content: center;
+    padding: 15px;
+    background: var(--bg-light);
+    border-radius: 8px;
 }
 
 .filter-btn {
-    padding: 8px 16px;
+    padding: 10px 20px;
     border: 2px solid #ddd;
     background: var(--white);
-    border-radius: 20px;
+    border-radius: 25px;
     cursor: pointer;
     font-size: 13px;
     font-weight: 600;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
     color: var(--text-dark);
 }
 
 .filter-btn:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
+    transform: translateY(-2px);
 }
 
 .filter-btn.active {
     background: var(--primary-color);
     color: var(--white);
     border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(196, 165, 123, 0.3);
+    transform: translateY(-2px);
 }
 
 /* Calendar Legend */
