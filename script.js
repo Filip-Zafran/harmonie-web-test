@@ -181,13 +181,44 @@ const practitioners = [
     }
 ];
 
-// Services Data
+// Services Data - Main Categories
 const services = {
     'Women\'s Health': ['Pregnancy', 'Pelvic Floor', 'Menopause', 'Women\'s Mental Health', 'Scar Therapy'],
     'Massage': ['Relaxation', 'Sports', 'Therapeutic', 'Holistic', 'Pregnancy'],
     'Osteopathy': ['Adults', 'Pregnancy', 'Babies & Children', 'Pain & Movement', 'Holistic Health'],
     'Talking Therapy': ['Psychotherapy', 'Trauma', 'Coaching', 'Couples', 'Mindfulness & Breathwork']
 };
+
+// Service to Subcategory Mapping
+const serviceSubcategoryMap = {
+    // Massage Subcategories
+    'Relaxation': ['Full Body Massage', 'Wellness/Swedish Massage', 'Aromatherapy Massage', 'Thai Yoga Massage', 'Lomi Lomi Massage'],
+    'Sports': ['Sports Massage', 'Trigger Point Massage', 'Manual Therapy Techniques & Pain Point Treatment'],
+    'Therapeutic': ['Integrative Health Treatment'],
+    'Holistic': ['Pantarei Approach'],
+    'Pregnancy': ['Pre/postnatal Massage', 'Movement - Stress-Release - Pregnancy'],
+    // Women's Health Subcategories
+    'Pregnancy': ['Pre/postnatal Massage', 'Movement - Stress-Release - Pregnancy', 'Pregnancy & Perinatal Mental Health'],
+    'Pelvic Floor': ['Pelvic Floor Check-up', 'Pelvic Floor Training'],
+    'Menopause': ['Menopause Support'],
+    'Scar Therapy': ['ScarWork'],
+    'Women\'s Mental Health': ['Psychotherapeutic Support for Women', 'Pregnancy & Perinatal Mental Health', 'Trauma-sensitive Therapy'],
+    // Osteopathy Subcategories
+    'Adults': ['Osteopathy'],
+    'Babies & Children': ['Osteopathy'],
+    'Pain & Movement': ['Osteopathy'],
+    'Holistic Health': ['Osteopathy', 'Naturopathy'],
+    // Talking Therapy Subcategories
+    'Psychotherapy': ['IFS Therapy', 'Somatic Experiencing', 'Somatic Experiencing®', 'Emotional Release', 'Nervous System Regulation', 'Trauma Resolution'],
+    'Trauma': ['Trauma-sensitive Bodywork', 'Trauma-sensitive Therapy'],
+    'Coaching': ['Coaching', 'Business Coaching', 'NLP', 'NLP (Neuro-Linguistic Programming)'],
+    'Mindfulness & Breathwork': ['Breathwork', 'Breathwork & Emotional Release', 'Yoga', 'Mindfulness Training', 'Meditation']
+};
+
+// Current filter state
+let currentMainCategory = null;
+let currentSubcategory = null;
+let currentDateForFilter = null;
 
 // Modal management
 const modal = document.getElementById('bookingModal');
@@ -828,6 +859,7 @@ function showAvailablePractitioners(selectedDate) {
 
     html += `
         </div>
+        <div class="subcategory-filters hidden" id="subcategoryFilters"></div>
         <div class="practitioners-panel-content" id="practitionersContent">
     `;
 
@@ -859,7 +891,11 @@ function showAvailablePractitioners(selectedDate) {
 function filterPractitionersByCategory(category, dateISOString) {
     const serviceName = document.getElementById('serviceBookingService').textContent;
     const currentPractitioner = document.getElementById('serviceBookingPractitioner').textContent;
-    const selectedDate = new Date(dateISOString);
+
+    // Store current state
+    currentMainCategory = category;
+    currentSubcategory = null;
+    currentDateForFilter = dateISOString;
 
     // Find all practitioners who offer this service (exclude current one)
     let practitioners_to_show = practitioners.filter(p =>
@@ -879,7 +915,66 @@ function filterPractitionersByCategory(category, dateISOString) {
         }
     });
 
+    // Show subcategory filters if a category is selected
+    const subcategoryContainer = document.getElementById('subcategoryFilters');
+    if (category && services[category]) {
+        let subcategoryHtml = `<div class="subcategory-filters">`;
+        services[category].forEach(sub => {
+            subcategoryHtml += `<button class="subcategory-filter-btn" onclick="filterPractitionersBySubcategory('${sub}', '${dateISOString}')">${sub}</button>`;
+        });
+        subcategoryHtml += `</div>`;
+
+        if (subcategoryContainer) {
+            subcategoryContainer.innerHTML = subcategoryHtml;
+            subcategoryContainer.classList.remove('hidden');
+        }
+    } else if (subcategoryContainer) {
+        subcategoryContainer.classList.add('hidden');
+    }
+
     // Update practitioners content
+    updatePractitionersDisplay(practitioners_to_show);
+}
+
+// Filter practitioners by subcategory
+function filterPractitionersBySubcategory(subcategory, dateISOString) {
+    const serviceName = document.getElementById('serviceBookingService').textContent;
+    const currentPractitioner = document.getElementById('serviceBookingPractitioner').textContent;
+
+    // Store current state
+    currentSubcategory = subcategory;
+
+    // Find all practitioners who offer this service (exclude current one)
+    let practitioners_to_show = practitioners.filter(p =>
+        p.services.includes(serviceName) && p.name !== currentPractitioner
+    );
+
+    // Filter by main category if specified
+    if (currentMainCategory) {
+        practitioners_to_show = practitioners_to_show.filter(p => p.categories.includes(currentMainCategory));
+    }
+
+    // Filter by specific services in this subcategory
+    if (serviceSubcategoryMap[subcategory]) {
+        practitioners_to_show = practitioners_to_show.filter(p =>
+            p.services.some(service => serviceSubcategoryMap[subcategory].includes(service))
+        );
+    }
+
+    // Update active button styling for subcategory
+    document.querySelectorAll('.subcategory-filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent === subcategory) {
+            btn.classList.add('active');
+        }
+    });
+
+    // Update practitioners content
+    updatePractitionersDisplay(practitioners_to_show);
+}
+
+// Helper function to update practitioners display
+function updatePractitionersDisplay(practitioners_to_show) {
     let html = '';
     if (practitioners_to_show.length === 0) {
         html = `<div class="no-available">No practitioners available in this category.</div>`;
