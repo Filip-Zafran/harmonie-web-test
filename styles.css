@@ -637,29 +637,34 @@ body {
 
 .subcategory-filters {
     display: flex !important;
-    flex-wrap: wrap;
+    flex-wrap: wrap !important;
     gap: 12px !important;
-    padding: 0 !important;
+    padding: 10px !important;
     margin: 0 !important;
-    background: transparent !important;
-    width: 100%;
-    position: relative;
+    background: #ffcccc !important;
+    width: 100% !important;
+    position: relative !important;
     z-index: 999 !important;
     animation: slideDown 0.3s ease;
+    align-items: center !important;
+    justify-content: flex-start !important;
 }
 
 .subcategory-filter-btn {
     padding: 12px 20px !important;
-    border: 2px solid #333 !important;
-    background: var(--white) !important;
+    border: 3px solid #000 !important;
+    background: #ffff00 !important;
     border-radius: 20px !important;
     cursor: pointer !important;
-    font-size: 14px !important;
+    font-size: 15px !important;
     font-weight: 700 !important;
-    color: #333 !important;
+    color: #000 !important;
     transition: all 0.3s !important;
     display: inline-block !important;
     margin: 5px !important;
+    min-width: 100px !important;
+    text-align: center !important;
+    line-height: 1.2 !important;
 }
 
 .subcategory-filter-btn:hover {
