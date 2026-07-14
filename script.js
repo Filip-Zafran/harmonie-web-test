@@ -640,23 +640,18 @@ function renderCalendar(containerId, onSelectCallback) {
 
     window.setSubcategoryFilter = function(subcategory, element) {
         console.log('Subcategory selected:', subcategory);
-        console.log('Element found:', element);
 
         // Store selected subcategory
         window.selectedSubcategory = subcategory;
 
         // Find practitioners offering this specific service
         const servicesToShow = serviceSubcategoryMap[subcategory] || [];
-        console.log('Services for subcategory:', servicesToShow);
-
         const practitionersForSubcategory = practitioners.filter(p =>
             p.services.some(service => servicesToShow.includes(service))
         );
-        console.log('Practitioners found:', practitionersForSubcategory.length);
 
         // Mark element as active
         if (element) {
-            console.log('Marking element as active');
             element.classList.add('active');
             element.style.backgroundColor = '#e74c3c';
             element.style.color = 'white';
@@ -664,31 +659,10 @@ function renderCalendar(containerId, onSelectCallback) {
         }
 
         // Show practitioners list
-        console.log('Showing practitioners');
         showPractitionersForSubcategory(practitionersForSubcategory, subcategory);
 
-        // Redraw calendar
-        console.log('Redrawing calendar');
-        drawCalendar(currentDate);
-
-        // Re-apply active state after drawCalendar clears it
-        setTimeout(function() {
-            console.log('Re-applying active state');
-            const buttons = document.querySelectorAll('.subcategory-filter-btn');
-            console.log('Found', buttons.length, 'buttons');
-            buttons.forEach(btn => {
-                if (btn.textContent.trim() === subcategory) {
-                    console.log('Found matching button, adding active class');
-                    btn.classList.add('active');
-                    btn.style.backgroundColor = '#e74c3c';
-                    btn.style.color = 'white';
-                    btn.style.borderColor = '#e74c3c';
-                }
-            });
-            // Re-show practitioners
-            console.log('Re-showing practitioners');
-            showPractitionersForSubcategory(practitionersForSubcategory, subcategory);
-        }, 50);
+        // Do NOT call drawCalendar - it clears the subcategories!
+        // The calendar will remain as-is with the currently displayed month
     };
 
     window.showPractitionersForSubcategory = function(practitionersList, subcategory) {
