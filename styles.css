@@ -617,6 +617,46 @@ body {
     bottom: -30px;
 }
 
+/* Subcategory Filter Container */
+.subcategory-filter-container {
+    margin: 15px 0;
+    min-height: 0;
+}
+
+.subcategory-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+    background: var(--bg-light);
+    border-radius: 8px;
+    animation: slideDown 0.3s ease;
+}
+
+.subcategory-filter-btn {
+    padding: 10px 16px;
+    border: 2px solid #ddd;
+    background: var(--white);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dark);
+    transition: all 0.3s;
+}
+
+.subcategory-filter-btn:hover {
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.subcategory-filter-btn.active {
+    background: #e74c3c !important;
+    color: var(--white) !important;
+    border-color: #e74c3c !important;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
 /* Calendar */
 #calendar-container,
 #calendar-container-2 {

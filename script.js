@@ -498,6 +498,7 @@ function renderCalendar(containerId, onSelectCallback) {
 
         html += `
             </div>
+            <div class="subcategory-filter-container" id="subcategoryFilterContainer"></div>
 
             <div class="calendar">
                 <div class="calendar-header">
@@ -589,6 +590,10 @@ function renderCalendar(containerId, onSelectCallback) {
             // Hide practitioner dropdown when any filter is clicked
             hidePractitionerDropdown();
         }
+
+        // Show subcategories if a category is selected
+        showSubcategoryFilters(filter, containerId);
+
         drawCalendar(currentDate);
 
         // Reapply active state after redrawing calendar
@@ -600,6 +605,36 @@ function renderCalendar(containerId, onSelectCallback) {
                 }
             });
         }
+    };
+
+    window.showSubcategoryFilters = function(category, containerId) {
+        const container = document.getElementById('subcategoryFilterContainer');
+        if (!container) return;
+
+        if (!category || !services[category]) {
+            container.innerHTML = '';
+            return;
+        }
+
+        let html = '<div class="subcategory-filters">';
+        services[category].forEach(subcategory => {
+            html += `<button class="subcategory-filter-btn" onclick="setSubcategoryFilter('${subcategory}', this)">${subcategory}</button>`;
+        });
+        html += '</div>';
+
+        container.innerHTML = html;
+    };
+
+    window.setSubcategoryFilter = function(subcategory, element) {
+        console.log('Subcategory selected:', subcategory);
+        // Update active state
+        document.querySelectorAll('.subcategory-filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        element.classList.add('active');
+
+        // Redraw calendar with subcategory filter applied
+        drawCalendar(currentDate);
     };
 
     window.selectCalendarDate = function(date, callback) {
