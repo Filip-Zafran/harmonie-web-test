@@ -372,35 +372,45 @@ function renderServiceCategories(containerId, onSelectCallback) {
         const categoryDiv = document.createElement('div');
         categoryDiv.className = 'service-category';
 
-        // Get practitioners for this category
-        const practitionersInCategory = practitioners.filter(p => p.categories.includes(category));
-
         let html = `<h3>${category}</h3>`;
 
-        // Show practitioner circles for this category
-        if (practitionersInCategory.length > 0) {
-            html += '<div class="practitioners-circles">';
-            practitionersInCategory.forEach(practitioner => {
-                html += `
-                    <div class="practitioner-circle" title="${practitioner.name}" onclick="selectServiceAndPractitioner('${category}', '${practitioner.name}')">
-                        <img src="${practitioner.image}" alt="${practitioner.name}">
-                        <span class="practitioner-name">${practitioner.name}</span>
-                    </div>
-                `;
-            });
-            html += '</div>';
-        }
+        // Show each subcategory with its practitioners
+        html += '<div class="subcategories-list">';
+        servicesList.forEach(subcategory => {
+            html += `<div class="subcategory-item">`;
 
-        // Show individual services
-        html += `
-            <ul>
-                ${servicesList.map(service => `
-                    <li>
-                        <button onclick="${onSelectCallback}('${service}', '${category}')">${service}</button>
-                    </li>
-                `).join('')}
-            </ul>
-        `;
+            // Get services that map to this subcategory
+            const servicesInSubcategory = serviceSubcategoryMap[subcategory] || [];
+
+            // Find practitioners offering services in this subcategory
+            const practitionersForSubcategory = practitioners.filter(p =>
+                p.services.some(service => servicesInSubcategory.includes(service))
+            );
+
+            // Show practitioners as small circles next to subcategory
+            let practitionersHtml = '';
+            if (practitionersForSubcategory.length > 0) {
+                practitionersHtml = '<div class="subcategory-practitioners-inline">';
+                practitionersForSubcategory.forEach(practitioner => {
+                    practitionersHtml += `
+                        <div class="practitioner-circle-small" title="${practitioner.name}" onclick="selectServiceAndPractitioner('${subcategory}', '${practitioner.name}')">
+                            <img src="${practitioner.image}" alt="${practitioner.name}">
+                            <span class="practitioner-name-small">${practitioner.name}</span>
+                        </div>
+                    `;
+                });
+                practitionersHtml += '</div>';
+            }
+
+            html += `
+                <div class="subcategory-header">
+                    <button class="subcategory-name" onclick="${onSelectCallback}('${subcategory}', '${category}')">${subcategory}</button>
+                    ${practitionersHtml}
+                </div>
+            `;
+            html += `</div>`;
+        });
+        html += '</div>';
 
         categoryDiv.innerHTML = html;
         container.appendChild(categoryDiv);
