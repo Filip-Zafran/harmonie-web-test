@@ -675,7 +675,62 @@ body {
     background: #e74c3c !important;
     color: var(--white) !important;
     border-color: #e74c3c !important;
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3) !important;
+    box-shadow: 0 6px 16px rgba(231, 76, 60, 0.4) !important;
+    font-weight: 700 !important;
+}
+
+/* Practitioners List Container */
+.subcategory-practitioners {
+    margin: 20px 0;
+    padding: 15px;
+    background: var(--bg-light);
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.practitioner-filter-card {
+    background: var(--white);
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s;
+    flex: 0 1 calc(33.333% - 10px);
+    min-width: 150px;
+}
+
+.practitioner-filter-card:hover {
+    border-color: #e74c3c;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.practitioner-filter-card.active {
+    background: #e74c3c;
+    color: var(--white);
+    border-color: #e74c3c;
+}
+
+.practitioner-filter-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
+    margin-bottom: 8px;
+}
+
+.practitioner-filter-card.active img {
+    border-color: var(--white);
+}
+
+.practitioner-filter-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
 }
 
 /* Calendar */

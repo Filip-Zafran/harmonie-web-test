@@ -640,14 +640,68 @@ function renderCalendar(containerId, onSelectCallback) {
 
     window.setSubcategoryFilter = function(subcategory, element) {
         console.log('Subcategory selected:', subcategory);
-        // Update active state
+
+        // Update active state with red styling
         document.querySelectorAll('.subcategory-filter-btn').forEach(btn => {
             btn.classList.remove('active');
         });
         element.classList.add('active');
 
-        // Redraw calendar with subcategory filter applied
+        // Find practitioners offering this specific service
+        const servicesToShow = serviceSubcategoryMap[subcategory] || [];
+        const practitionersForSubcategory = practitioners.filter(p =>
+            p.services.some(service => servicesToShow.includes(service))
+        );
+
+        // Show practitioners list
+        showPractitionersForSubcategory(practitionersForSubcategory, subcategory);
+
+        // Redraw calendar
         drawCalendar(currentDate);
+    };
+
+    window.showPractitionersForSubcategory = function(practitionersList, subcategory) {
+        // Create or get practitioners container
+        let container = document.getElementById('subcategoryPractitioners');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'subcategoryPractitioners';
+            container.className = 'subcategory-practitioners';
+            const subcategoryFilters = document.querySelector('.subcategory-filters');
+            if (subcategoryFilters && subcategoryFilters.parentElement) {
+                subcategoryFilters.parentElement.appendChild(container);
+            }
+        }
+
+        let html = '';
+        if (practitionersList.length === 0) {
+            html = '<p style="width: 100%; text-align: center; color: #999;">No practitioners available for this service.</p>';
+        } else {
+            practitionersList.forEach(practitioner => {
+                html += `
+                    <div class="practitioner-filter-card" onclick="filterByPractitioner('${practitioner.name}')">
+                        <img src="/${practitioner.image}" alt="${practitioner.name}">
+                        <div class="practitioner-filter-name">${practitioner.name}</div>
+                    </div>
+                `;
+            });
+        }
+
+        container.innerHTML = html;
+    };
+
+    window.filterByPractitioner = function(practitionerName) {
+        console.log('Selected practitioner:', practitionerName);
+
+        // Mark practitioner as selected
+        document.querySelectorAll('.practitioner-filter-card').forEach(card => {
+            card.classList.remove('active');
+        });
+        event.target.closest('.practitioner-filter-card').classList.add('active');
+
+        // Filter calendar to show only this practitioner's availability
+        // For now, just show confirmation
+        alert(`Filtering availability for ${practitionerName}`);
     };
 
     window.selectCalendarDate = function(date, callback) {
