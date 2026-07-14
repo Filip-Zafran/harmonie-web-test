@@ -573,18 +573,19 @@ function renderCalendar(containerId, onSelectCallback) {
             btn.classList.remove('active');
             btn.style.color = '';
             btn.style.borderColor = '';
-            btn.style.background = '';
+            btn.style.backgroundColor = '';
+            btn.style.fontWeight = '';
             console.log('Cleared styles from:', btn.textContent);
         });
 
         if (element) {
             console.log('Setting active styles on:', element.textContent);
             element.classList.add('active');
-            element.style.background = '#e74c3c';
+            element.style.backgroundColor = '#e74c3c';
             element.style.color = 'white';
             element.style.borderColor = '#e74c3c';
             element.style.fontWeight = '700';
-            console.log('Applied styles - background:', element.style.background, 'color:', element.style.color);
+            console.log('Applied styles - backgroundColor:', element.style.backgroundColor, 'color:', element.style.color);
             // Hide practitioner dropdown when any filter is clicked
             hidePractitionerDropdown();
         }
