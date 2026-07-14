@@ -643,24 +643,156 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Book a specific service
 function bookServiceByName(serviceName) {
-    openBookingModal();
-    // Show the service selection step after modal opens
-    setTimeout(function() {
-        startBookingByService();
-        // Highlight the matching service if found
-        highlightService(serviceName);
-    }, 100);
+    // Get practitioner name from the page heading
+    const practitionerName = document.querySelector('.practitioner-profile h1').textContent;
+    openServiceBookingModal(practitionerName, serviceName);
 }
 
-// Highlight a specific service in the service list
-function highlightService(serviceName) {
-    const serviceButtons = document.querySelectorAll('.service-category button');
-    serviceButtons.forEach(button => {
-        if (button.textContent.trim() === serviceName) {
-            button.click();
-        }
+// Open service booking modal
+function openServiceBookingModal(practitionerName, serviceName) {
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('serviceBookingModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'serviceBookingModal';
+        modal.className = 'service-booking-modal';
+        modal.innerHTML = `
+            <div class="service-booking-header">
+                <h2>Book Service</h2>
+                <button class="close" onclick="closeServiceBookingModal()">×</button>
+            </div>
+            <div class="service-booking-content">
+                <div class="service-booking-info">
+                    <div>
+                        <div class="info-label">Practitioner</div>
+                        <div class="info-value" id="serviceBookingPractitioner"></div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <div class="info-label">Service</div>
+                        <div class="info-value" id="serviceBookingService"></div>
+                    </div>
+                </div>
+
+                <div class="duration-selector">
+                    <h4>Select Duration</h4>
+                    <div class="duration-options">
+                        <button class="duration-btn" onclick="selectDuration(30)">30 min</button>
+                        <button class="duration-btn" onclick="selectDuration(60)">60 min</button>
+                        <button class="duration-btn" onclick="selectDuration(90)">90 min</button>
+                    </div>
+                </div>
+
+                <div id="serviceBookingCalendar"></div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
+    // Update modal with selected service and practitioner
+    document.getElementById('serviceBookingPractitioner').textContent = practitionerName;
+    document.getElementById('serviceBookingService').textContent = serviceName;
+
+    // Show modal
+    modal.classList.remove('hidden');
+
+    // Reset duration selection
+    document.querySelectorAll('.duration-btn').forEach(btn => {
+        btn.classList.remove('selected');
     });
+
+    // Generate calendar
+    generateServiceCalendar();
 }
+
+function closeServiceBookingModal() {
+    const modal = document.getElementById('serviceBookingModal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+}
+
+function selectDuration(minutes) {
+    // Mark selected duration
+    document.querySelectorAll('.duration-btn').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    event.target.classList.add('selected');
+}
+
+// Generate simple calendar for service booking
+function generateServiceCalendar() {
+    const container = document.getElementById('serviceBookingCalendar');
+    const now = new Date();
+    let currentDate = new Date(now.getFullYear(), now.getMonth(), 1);
+    let selectedDate = null;
+
+    function drawCalendar(date) {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        let html = `
+            <div class="calendar">
+                <div class="calendar-header">
+                    <button onclick="changeServiceMonth(-1)">← Prev</button>
+                    <div class="calendar-title">${date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</div>
+                    <button onclick="changeServiceMonth(1)">Next →</button>
+                </div>
+                <div class="calendar-weekdays">
+                    <div class="weekday">Sun</div>
+                    <div class="weekday">Mon</div>
+                    <div class="weekday">Tue</div>
+                    <div class="weekday">Wed</div>
+                    <div class="weekday">Thu</div>
+                    <div class="weekday">Fri</div>
+                    <div class="weekday">Sat</div>
+                </div>
+                <div class="calendar-days">
+        `;
+
+        for (let i = 0; i < firstDay; i++) {
+            html += '<div class="calendar-day empty"></div>';
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dateObj = new Date(year, month, day);
+            const isPast = dateObj < new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const isSelected = selectedDate && dateObj.toDateString() === selectedDate.toDateString();
+            html += `
+                <div class="calendar-day ${isSelected ? 'selected' : ''} ${isPast ? 'empty' : ''}"
+                     onclick="${isPast ? '' : `selectServiceDate(new Date('${dateObj.toISOString()}'))`}">
+                    ${day}
+                </div>
+            `;
+        }
+
+        html += `</div></div>`;
+        container.innerHTML = html;
+    }
+
+    window.changeServiceMonth = function(offset) {
+        currentDate.setMonth(currentDate.getMonth() + offset);
+        drawCalendar(currentDate);
+    };
+
+    window.selectServiceDate = function(date) {
+        selectedDate = date;
+        drawCalendar(currentDate);
+        // Show confirmation or next step
+        alert(`Selected: ${date.toLocaleDateString()} - Ready to confirm booking`);
+    };
+
+    drawCalendar(currentDate);
+}
+
+// Close modal on background click
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('serviceBookingModal');
+    if (modal && e.target === modal) {
+        closeServiceBookingModal();
+    }
+});
 
 // Practitioner Dropdown
 function showPractitionerDropdown(category, element) {
