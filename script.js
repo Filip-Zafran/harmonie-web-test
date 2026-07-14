@@ -502,7 +502,7 @@ function showPractitionerDropdown(category, element) {
     const practitionersInCategory = practitioners.filter(p => p.categories.includes(category));
 
     // Remove existing dropdown
-    const existingDropdown = document.querySelector('.practitioners-dropdown');
+    let existingDropdown = document.querySelector('.practitioners-dropdown');
     if (existingDropdown) {
         existingDropdown.remove();
     }
@@ -513,9 +513,9 @@ function showPractitionerDropdown(category, element) {
     const color = getColorForCategory(category);
 
     let html = `
-        <div class="dropdown-header" style="background: ${color};">
+        <div class="dropdown-header" style="border-bottom-color: ${color}; color: ${color};">
             <h4>${category} Practitioners</h4>
-            <button class="dropdown-close" onclick="hidePractitionerDropdown()">×</button>
+            <button class="dropdown-close" style="color: ${color};" onclick="hidePractitionerDropdown()">×</button>
         </div>
         <div class="dropdown-content">
     `;
@@ -532,8 +532,8 @@ function showPractitionerDropdown(category, element) {
                     <div class="card-info">
                         <h5>${practitioner.name}</h5>
                         <p class="card-specialization">${practitioner.specialization}</p>
-                        <p class="card-services">${practitioner.services.slice(0, 2).join(', ')}...</p>
-                        <a href="${practitioner.name.toLowerCase()}.html" class="card-link">View Profile →</a>
+                        <p class="card-services">${practitioner.services.slice(0, 2).join(', ')}</p>
+                        <a href="${practitioner.name.toLowerCase()}.html" class="card-link">Profile →</a>
                     </div>
                 </div>
             `;
@@ -542,7 +542,15 @@ function showPractitionerDropdown(category, element) {
 
     html += '</div>';
     dropdown.innerHTML = html;
-    document.body.appendChild(dropdown);
+
+    // Insert dropdown before the calendar in the calendar container
+    const calendarContainer = document.querySelector('#calendar-container, #calendar-container-2');
+    if (calendarContainer && calendarContainer.parentElement) {
+        calendarContainer.parentElement.insertBefore(dropdown, calendarContainer);
+    } else {
+        // Fallback: append to body
+        document.body.appendChild(dropdown);
+    }
 }
 
 function hidePractitionerDropdown() {
