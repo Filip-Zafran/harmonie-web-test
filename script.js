@@ -263,19 +263,6 @@ function getColorForCategory(category) {
 
 // Mock booking data with specific services by date
 const mockBookings = {
-    '2026-07-01': ['Massage'],
-    '2026-07-02': ['Women\'s Health', 'Osteopathy'],
-    '2026-07-03': ['Talking Therapy'],
-    '2026-07-04': ['Massage'],
-    '2026-07-05': ['Massage', 'Talking Therapy'],
-    '2026-07-06': ['Osteopathy'],
-    '2026-07-07': ['Women\'s Health'],
-    '2026-07-08': ['Massage', 'Talking Therapy'],
-    '2026-07-09': ['Osteopathy'],
-    '2026-07-10': ['Women\'s Health', 'Massage'],
-    '2026-07-11': ['Talking Therapy'],
-    '2026-07-12': ['Osteopathy', 'Women\'s Health'],
-    '2026-07-13': ['Massage'],
     '2026-07-14': ['Massage'],
     '2026-07-15': ['Massage'],
     '2026-07-16': [],
