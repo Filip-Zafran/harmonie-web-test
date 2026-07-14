@@ -629,18 +629,18 @@ body {
 .calendar {
     border: 2px solid #ddd;
     border-radius: 12px;
-    padding: 30px;
+    padding: 20px;
     background: var(--white);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     width: 100%;
-    max-width: 600px;
+    max-width: 100%;
 }
 
 .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .calendar-header button {
@@ -670,16 +670,16 @@ body {
 .calendar-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 6px;
+    margin-bottom: 10px;
 }
 
 .weekday {
     text-align: center;
     font-weight: 700;
     color: var(--primary-color);
-    font-size: 13px;
-    padding: 12px 0;
+    font-size: 11px;
+    padding: 8px 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -687,8 +687,8 @@ body {
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-    margin-bottom: 30px;
+    gap: 6px;
+    margin-bottom: 20px;
 }
 
 .calendar-day {
@@ -697,14 +697,14 @@ body {
     align-items: center;
     justify-content: center;
     border: 2px solid #ddd;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
     background: var(--white);
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     transition: all 0.3s;
     position: relative;
-    min-height: 70px;
+    min-height: 50px;
     flex-direction: column;
 }
 
