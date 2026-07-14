@@ -398,8 +398,9 @@ function renderServiceCategories(containerId, onSelectCallback) {
             if (practitionersForSubcategory.length > 0) {
                 practitionersHtml = '<div class="subcategory-practitioners-inline">';
                 practitionersForSubcategory.forEach(practitioner => {
+                    const escapedPractitionerName = practitioner.name.replace(/'/g, "\\'");
                     practitionersHtml += `
-                        <div class="practitioner-circle-small" title="${practitioner.name}" onclick="selectServiceAndPractitioner('${subcategory}', '${practitioner.name}')">
+                        <div class="practitioner-circle-small" title="${practitioner.name}" onclick="selectServiceAndPractitioner('${escapedSubcategory}', '${escapedPractitionerName}')">
                             <img src="${practitioner.image}" alt="${practitioner.name}">
                             <span class="practitioner-name-small">${practitioner.name}</span>
                         </div>
@@ -408,9 +409,12 @@ function renderServiceCategories(containerId, onSelectCallback) {
                 practitionersHtml += '</div>';
             }
 
+            const escapedSubcategory = subcategory.replace(/'/g, "\\'");
+            const escapedCategory = category.replace(/'/g, "\\'");
+
             html += `
                 <div class="subcategory-header">
-                    <button class="subcategory-name" onclick="${onSelectCallback}('${subcategory}', '${category}')">${subcategory}</button>
+                    <button class="subcategory-name" onclick="${onSelectCallback}('${escapedSubcategory}', '${escapedCategory}')">${subcategory}</button>
                     ${practitionersHtml}
                 </div>
             `;
