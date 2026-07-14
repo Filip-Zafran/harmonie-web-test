@@ -272,25 +272,25 @@ function renderPractitionersList() {
 
 function openPractitionerProfile(practitionerName) {
     const profilePageMap = {
-        'Melanie': '/practitioner-melanie.html',
-        'Noemi': '/practitioner-noemi.html',
-        'Chloe': '/practitioner-chloe.html',
-        'Robert': '/practitioner-robert.html',
-        'Jelena': '/practitioner-jelena.html',
-        'Verena': '/practitioner-verena.html',
-        'Deniz': '/practitioner-deniz.html',
-        'Tina': '/practitioner-tina.html',
-        'Fernando': '/practitioner-fernando.html',
-        'Agnieszka': '/practitioner-agnieszka.html',
-        'Ulrike': '/practitioner-ulrike.html',
-        'Ilke': '/practitioner-ilke.html',
-        'Chin Ling': '/practitioner-chin-ling.html',
-        'Žaneta': '/practitioner-zaneta.html',
-        'Susan': '/practitioner-susan.html',
-        'Maria': '/practitioner-maria.html',
-        'Nadine': '/practitioner-nadine.html',
-        'Martina': '/practitioner-martina.html',
-        'Nico': '/practitioner-nico.html'
+        'Melanie': './practitioners-pages/practitioner-melanie.html',
+        'Noemi': './practitioners-pages/practitioner-noemi.html',
+        'Chloe': './practitioners-pages/practitioner-chloe.html',
+        'Robert': './practitioners-pages/practitioner-robert.html',
+        'Jelena': './practitioners-pages/practitioner-jelena.html',
+        'Verena': './practitioners-pages/practitioner-verena.html',
+        'Deniz': './practitioners-pages/practitioner-deniz.html',
+        'Tina': './practitioners-pages/practitioner-tina.html',
+        'Fernando': './practitioners-pages/practitioner-fernando.html',
+        'Agnieszka': './practitioners-pages/practitioner-agnieszka.html',
+        'Ulrike': './practitioners-pages/practitioner-ulrike.html',
+        'Ilke': './practitioners-pages/practitioner-ilke.html',
+        'Chin Ling': './practitioners-pages/practitioner-chin-ling.html',
+        'Žaneta': './practitioners-pages/practitioner-zaneta.html',
+        'Susan': './practitioners-pages/practitioner-susan.html',
+        'Maria': './practitioners-pages/practitioner-maria.html',
+        'Nadine': './practitioners-pages/practitioner-nadine.html',
+        'Martina': './practitioners-pages/practitioner-martina.html',
+        'Nico': './practitioners-pages/practitioner-nico.html'
     };
 
     const profilePage = profilePageMap[practitionerName];
