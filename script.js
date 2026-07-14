@@ -897,16 +897,6 @@ function filterPractitionersByCategory(category, dateISOString) {
     currentSubcategory = null;
     currentDateForFilter = dateISOString;
 
-    // Find all practitioners who offer this service (exclude current one)
-    let practitioners_to_show = practitioners.filter(p =>
-        p.services.includes(serviceName) && p.name !== currentPractitioner
-    );
-
-    // Filter by category if specified
-    if (category) {
-        practitioners_to_show = practitioners_to_show.filter(p => p.categories.includes(category));
-    }
-
     // Update active button styling
     document.querySelectorAll('.category-filter-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -918,22 +908,29 @@ function filterPractitionersByCategory(category, dateISOString) {
     // Show subcategory filters if a category is selected
     const subcategoryContainer = document.getElementById('subcategoryFilters');
     if (category && services[category]) {
-        let subcategoryHtml = `<div class="subcategory-filters">`;
+        let subcategoryHtml = '';
         services[category].forEach(sub => {
             subcategoryHtml += `<button class="subcategory-filter-btn" onclick="filterPractitionersBySubcategory('${sub}', '${dateISOString}')">${sub}</button>`;
         });
-        subcategoryHtml += `</div>`;
 
         if (subcategoryContainer) {
             subcategoryContainer.innerHTML = subcategoryHtml;
             subcategoryContainer.classList.remove('hidden');
         }
+
+        // Clear practitioners - only show after subcategory is selected
+        document.getElementById('practitionersContent').innerHTML = '';
     } else if (subcategoryContainer) {
         subcategoryContainer.classList.add('hidden');
-    }
 
-    // Update practitioners content
-    updatePractitionersDisplay(practitioners_to_show);
+        // If "All" is selected, show all practitioners
+        if (category === null) {
+            let practitioners_to_show = practitioners.filter(p =>
+                p.services.includes(serviceName) && p.name !== currentPractitioner
+            );
+            updatePractitionersDisplay(practitioners_to_show);
+        }
+    }
 }
 
 // Filter practitioners by subcategory
