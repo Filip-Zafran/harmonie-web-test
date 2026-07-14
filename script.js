@@ -592,10 +592,22 @@ function renderCalendar(containerId, onSelectCallback) {
         drawCalendar(currentDate);
 
         // Reapply active state after redrawing calendar
+        const buttons = document.querySelectorAll(`#${containerId} .filter-btn`);
+        buttons.forEach(btn => {
+            btn.classList.remove('active');
+        });
+
         if (selectedFilter !== null) {
-            const buttons = document.querySelectorAll(`#${containerId} .filter-btn`);
+            // Activate the selected filter button
             buttons.forEach(btn => {
                 if (btn.textContent.trim() === selectedFilter) {
+                    btn.classList.add('active');
+                }
+            });
+        } else {
+            // Activate "All" button when no filter is selected
+            buttons.forEach(btn => {
+                if (btn.textContent.trim() === 'All') {
                     btn.classList.add('active');
                 }
             });
