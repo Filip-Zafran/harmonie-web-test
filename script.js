@@ -50,37 +50,43 @@ const practitioners = [
         name: 'Melanie',
         image: 'images/melanie.png',
         services: ['Full Body Massage', 'Pre/postnatal Massage', 'Integrative Health Treatment', 'ScarWork'],
-        specialization: 'Massage Therapy'
+        specialization: 'Massage Therapy',
+        categories: ['Massage', 'Women\'s Health']
     },
     {
         name: 'Noemi',
         image: 'images/noemi.png',
         services: ['Wellness/Swedish Massage', 'Aromatherapy Massage', 'Thai Yoga Massage', 'Pantarei Approach'],
-        specialization: 'Wellness & Massage'
+        specialization: 'Wellness & Massage',
+        categories: ['Massage']
     },
     {
         name: 'Chloe',
         image: 'images/chloe.png',
         services: ['IFS Therapy', 'Somatic Experiencing', 'Emotional Release', 'Nervous System Regulation', 'Trauma Resolution', 'NLP', 'Breathwork', 'Coaching'],
-        specialization: 'Therapy & Coaching'
+        specialization: 'Therapy & Coaching',
+        categories: ['Talking Therapy']
     },
     {
         name: 'Robert',
         image: 'images/robert.png',
         services: ['Osteopathy', 'Trauma-sensitive Bodywork', 'Breathwork & Emotional Release'],
-        specialization: 'Osteopathy'
+        specialization: 'Osteopathy',
+        categories: ['Osteopathy', 'Talking Therapy']
     },
     {
         name: 'Jelena',
         image: 'images/jelena.png',
         services: ['Osteopathy', 'Movement - Stress-Release - Pregnancy', 'Lomi Lomi Massage'],
-        specialization: 'Osteopathy & Massage'
+        specialization: 'Osteopathy & Massage',
+        categories: ['Osteopathy', 'Massage', 'Women\'s Health']
     },
     {
         name: 'Verena',
         image: 'images/verena.png',
         services: ['Osteopathy', 'Naturopathy', 'Women\'s Health', 'Pelvic Floor Check-up', 'Pelvic Floor Training', 'Menopause Support', 'Mental Health Care'],
-        specialization: 'Osteopathy & Women\'s Health'
+        specialization: 'Osteopathy & Women\'s Health',
+        categories: ['Osteopathy', 'Women\'s Health']
     }
 ];
 
@@ -399,6 +405,12 @@ function renderCalendar(containerId, onSelectCallback) {
         });
         if (element) {
             element.classList.add('active');
+            // Show practitioner dropdown if a category is selected
+            if (filter) {
+                showPractitionerDropdown(filter, element);
+            } else {
+                hidePractitionerDropdown();
+            }
         }
         drawCalendar(currentDate);
     };
@@ -483,6 +495,62 @@ function selectTimeSlot(category, time) {
 function hexToRgb(hex) {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : '0, 0, 0';
+}
+
+// Practitioner Dropdown
+function showPractitionerDropdown(category, element) {
+    const practitionersInCategory = practitioners.filter(p => p.categories.includes(category));
+
+    // Remove existing dropdown
+    const existingDropdown = document.querySelector('.practitioners-dropdown');
+    if (existingDropdown) {
+        existingDropdown.remove();
+    }
+
+    const dropdown = document.createElement('div');
+    dropdown.className = 'practitioners-dropdown';
+
+    const color = getColorForCategory(category);
+
+    let html = `
+        <div class="dropdown-header" style="background: ${color};">
+            <h4>${category} Practitioners</h4>
+            <button class="dropdown-close" onclick="hidePractitionerDropdown()">×</button>
+        </div>
+        <div class="dropdown-content">
+    `;
+
+    if (practitionersInCategory.length === 0) {
+        html += '<p class="no-practitioners">No practitioners available for this category</p>';
+    } else {
+        practitionersInCategory.forEach(practitioner => {
+            html += `
+                <div class="practitioner-dropdown-card" onclick="openPractitionerProfile('${practitioner.name}')">
+                    <div class="card-image">
+                        <img src="${practitioner.image}" alt="${practitioner.name}">
+                    </div>
+                    <div class="card-info">
+                        <h5>${practitioner.name}</h5>
+                        <p class="card-specialization">${practitioner.specialization}</p>
+                        <p class="card-services">${practitioner.services.slice(0, 2).join(', ')}...</p>
+                        <a href="${practitioner.name.toLowerCase()}.html" class="card-link">View Profile →</a>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    html += '</div>';
+    dropdown.innerHTML = html;
+    document.body.appendChild(dropdown);
+}
+
+function hidePractitionerDropdown() {
+    const dropdown = document.querySelector('.practitioners-dropdown');
+    if (dropdown) {
+        dropdown.classList.add('hidden');
+        setTimeout(() => dropdown.remove(), 300);
+    }
 }
 
 // Completion function
