@@ -620,16 +620,15 @@ body {
 /* Subcategory Filter Container */
 .subcategory-filter-container {
     width: 100% !important;
-    margin: -5px 0 20px 0 !important;
-    padding: 20px !important;
+    margin: 0 0 20px 0 !important;
+    padding: 10px 0 !important;
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
     position: relative !important;
     z-index: 999 !important;
-    background: #ffcccc !important;
-    border: 3px solid red !important;
-    border-radius: 0 0 8px 8px !important;
+    background: transparent !important;
+    border: none !important;
     clear: both !important;
     float: none !important;
     overflow: visible !important;
@@ -638,31 +637,30 @@ body {
 .subcategory-filters {
     display: flex !important;
     flex-wrap: wrap !important;
-    gap: 12px !important;
-    padding: 10px !important;
+    gap: 10px !important;
+    padding: 0 !important;
     margin: 0 !important;
-    background: #ffcccc !important;
+    background: transparent !important;
     width: 100% !important;
     position: relative !important;
     z-index: 999 !important;
     animation: slideDown 0.3s ease;
     align-items: center !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
 }
 
 .subcategory-filter-btn {
-    padding: 12px 20px !important;
-    border: 3px solid #000 !important;
-    background: #ffff00 !important;
+    padding: 10px 16px !important;
+    border: 2px solid var(--primary-color) !important;
+    background: var(--white) !important;
     border-radius: 20px !important;
     cursor: pointer !important;
-    font-size: 15px !important;
-    font-weight: 700 !important;
-    color: #000 !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: var(--primary-color) !important;
     transition: all 0.3s !important;
     display: inline-block !important;
-    margin: 5px !important;
-    min-width: 100px !important;
+    margin: 3px !important;
     text-align: center !important;
     line-height: 1.2 !important;
 }
