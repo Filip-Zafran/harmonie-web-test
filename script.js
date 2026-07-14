@@ -562,18 +562,27 @@ function renderCalendar(containerId, onSelectCallback) {
     }
 
     window.setCalendarFilter = function(filter, element) {
+        console.log('setCalendarFilter called with filter:', filter, 'element:', element);
         selectedFilter = filter;
-        document.querySelectorAll(`#${containerId} .filter-btn`).forEach(btn => {
+
+        const buttons = document.querySelectorAll(`#${containerId} .filter-btn`);
+        console.log('Found buttons:', buttons.length);
+
+        buttons.forEach(btn => {
             btn.classList.remove('active');
             btn.style.color = '';
             btn.style.borderColor = '';
             btn.style.background = '';
+            console.log('Cleared styles from:', btn.textContent);
         });
+
         if (element) {
+            console.log('Setting active styles on:', element.textContent);
             element.classList.add('active');
-            element.style.background = '#e74c3c';
-            element.style.color = 'white';
-            element.style.borderColor = '#e74c3c';
+            element.style.background = '#e74c3c !important';
+            element.style.color = 'white !important';
+            element.style.borderColor = '#e74c3c !important';
+            console.log('Applied styles - background:', element.style.background, 'color:', element.style.color);
             // Hide practitioner dropdown when any filter is clicked
             hidePractitionerDropdown();
         }
