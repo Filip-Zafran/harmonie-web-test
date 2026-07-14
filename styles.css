@@ -732,6 +732,31 @@ body {
     margin-bottom: 4px;
 }
 
+/* Practitioner Selector for Date Booking */
+.practitioner-date-btn {
+    padding: 10px 16px;
+    border: 2px solid #ddd;
+    background: var(--white);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dark);
+    transition: all 0.3s;
+}
+
+.practitioner-date-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.practitioner-date-btn:active,
+.practitioner-date-btn.selected {
+    background: var(--primary-color);
+    color: var(--white);
+    border-color: var(--primary-color);
+}
+
 /* Calendar */
 #calendar-container,
 #calendar-container-2 {
