@@ -219,6 +219,8 @@ const serviceSubcategoryMap = {
 let currentMainCategory = null;
 let currentSubcategory = null;
 let currentDateForFilter = null;
+let selectedMainCategoryForService = null;
+let selectedSubcategoryForService = null;
 
 // Modal management
 const modal = document.getElementById('bookingModal');
@@ -354,9 +356,13 @@ function startBookingByService() {
 }
 
 function selectServiceThenDate(serviceName, serviceType) {
+    // Store the selected category and subcategory
+    selectedMainCategoryForService = serviceType;
+    selectedSubcategoryForService = serviceName;
+
     document.getElementById('selected-service-name').textContent = serviceType;
     showStep('step-calendar-after-service');
-    renderCalendar('calendar-container-2', 'completeBooking');
+    renderCalendar('calendar-container-2', 'completeBooking', serviceType, serviceName);
 }
 
 function backToService() {
@@ -627,14 +633,14 @@ const mockSlots = {
 };
 
 // Calendar rendering
-function renderCalendar(containerId, onSelectCallback) {
+function renderCalendar(containerId, onSelectCallback, preSelectedCategory, preSelectedSubcategory) {
     const container = document.getElementById(containerId);
     container.innerHTML = '';
 
     const now = new Date();
     let currentDate = new Date(now.getFullYear(), now.getMonth(), 1);
     let selectedDate = null;
-    let selectedFilter = null;
+    let selectedFilter = preSelectedCategory || null;
 
     function drawCalendar(date) {
         const year = date.getFullYear();
@@ -1112,6 +1118,32 @@ function generateServiceCalendar() {
     };
 
     drawCalendar(currentDate);
+
+    // Apply pre-selected filters if provided
+    if (preSelectedCategory && preSelectedSubcategory) {
+        setTimeout(() => {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            let categoryButton = null;
+
+            // Find and click the category filter button
+            filterButtons.forEach(btn => {
+                if (btn.textContent.trim() === preSelectedCategory) {
+                    categoryButton = btn;
+                    setCalendarFilter(preSelectedCategory, btn);
+                }
+            });
+
+            // After category is set, apply subcategory filter
+            setTimeout(() => {
+                const subcategoryButtons = document.querySelectorAll('.subcategory-filter-btn');
+                subcategoryButtons.forEach(btn => {
+                    if (btn.textContent.trim() === preSelectedSubcategory) {
+                        setSubcategoryFilter(preSelectedSubcategory, btn);
+                    }
+                });
+            }, 100);
+        }, 100);
+    }
 }
 
 // Show available practitioners for selected service and date
