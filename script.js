@@ -629,6 +629,39 @@ function hexToRgb(hex) {
     return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : '0, 0, 0';
 }
 
+// Make services clickable on practitioner pages
+document.addEventListener('DOMContentLoaded', function() {
+    const bookableServices = document.querySelectorAll('.bookable-services li');
+    bookableServices.forEach(service => {
+        service.style.cursor = 'pointer';
+        service.addEventListener('click', function() {
+            const serviceName = this.textContent.trim();
+            bookServiceByName(serviceName);
+        });
+    });
+});
+
+// Book a specific service
+function bookServiceByName(serviceName) {
+    openBookingModal();
+    // Show the service selection step after modal opens
+    setTimeout(function() {
+        startBookingByService();
+        // Highlight the matching service if found
+        highlightService(serviceName);
+    }, 100);
+}
+
+// Highlight a specific service in the service list
+function highlightService(serviceName) {
+    const serviceButtons = document.querySelectorAll('.service-category button');
+    serviceButtons.forEach(button => {
+        if (button.textContent.trim() === serviceName) {
+            button.click();
+        }
+    });
+}
+
 // Practitioner Dropdown
 function showPractitionerDropdown(category, element) {
     const practitionersInCategory = practitioners.filter(p => p.categories.includes(category));
