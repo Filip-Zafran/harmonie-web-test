@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robert - Osteopathy - Harmonie Studio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">Harmonie Studio</div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#open-day">Open Door Day</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="practitioners.html">Practitioners</a></li>
+                    <li><a href="#rent">Rent a space</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Practitioner Profile Section -->
+    <section class="practitioner-profile">
+        <div class="container">
+            <div class="profile-header">
+                <h1>Robert</h1>
+                <button class="btn-primary" onclick="openBookingModal()">BOOK ONLINE</button>
+            </div>
+
+            <div class="profile-content">
+                <div class="profile-image">
+                    <img src="images/robert.png" alt="Robert">
+                </div>
+
+                <div class="profile-text">
+                    <p class="profile-tagline">Restore harmony to your body and mind through holistic bodywork.</p>
+                    <p>As an osteopath, I work with the body's natural wisdom to restore balance, mobility, and wellbeing.</p>
+                    <p>My approach combines traditional osteopathic techniques with trauma-sensitive bodywork and breathwork practices, creating a comprehensive healing experience.</p>
+                    <p>I understand that the body holds emotional and physical trauma, and I create a safe, respectful space for processing and release.</p>
+                    <p>Whether you're dealing with physical pain, movement restrictions, or the emotional weight of past trauma, I'm here to help you reconnect with your body's innate healing capacity.</p>
+                </div>
+            </div>
+
+            <div class="profile-services">
+                <h3>Services Offered</h3>
+                <ul class="services-list">
+                    <li>Osteopathy</li>
+                    <li>Trauma-sensitive Bodywork</li>
+                    <li>Breathwork & Emotional Release</li>
+                </ul>
+            </div>
+
+            <div class="profile-social">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link">Website</a>
+                    <a href="#" class="social-link">Instagram</a>
+                </div>
+            </div>
+
+            <div class="profile-cta">
+                <button class="btn-primary" onclick="openBookingModal()">BOOK ONLINE</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <div id="step-method" class="booking-step">
+                <h2>Book Your Session</h2>
+                <p>Choose how you'd like to book:</p>
+                <div class="booking-options">
+                    <button class="booking-option" onclick="startBookingByPractitioner()">
+                        <span class="option-title">By Practitioner</span>
+                        <span class="option-desc">Browse our practitioners</span>
+                    </button>
+                    <button class="booking-option" onclick="startBookingByDate()">
+                        <span class="option-title">By Date</span>
+                        <span class="option-desc">Pick a date first</span>
+                    </button>
+                    <button class="booking-option" onclick="startBookingByService()">
+                        <span class="option-title">By Service</span>
+                        <span class="option-desc">Choose a service type</span>
+                    </button>
+                </div>
+            </div>
+            <div id="step-practitioner" class="booking-step hidden">
+                <div class="step-header">
+                    <button class="back-btn" onclick="backToMethod()">← Back</button>
+                    <h2>Select a Practitioner</h2>
+                </div>
+                <div id="practitioner-list" class="practitioner-booking-list"></div>
+            </div>
+            <div id="step-date" class="booking-step hidden">
+                <div class="step-header">
+                    <button class="back-btn" onclick="backToMethod()">← Back</button>
+                    <h2>Select a Date</h2>
+                </div>
+                <div id="calendar-container"></div>
+                <p id="date-message" class="date-message hidden">Selected date: <span id="selected-date"></span></p>
+            </div>
+            <div id="step-service-after-date" class="booking-step hidden">
+                <div class="step-header">
+                    <button class="back-btn" onclick="backToDate()">← Back</button>
+                    <h2>Select a Service</h2>
+                </div>
+                <div id="service-list-after-date" class="service-categories"></div>
+            </div>
+            <div id="step-service" class="booking-step hidden">
+                <div class="step-header">
+                    <button class="back-btn" onclick="backToMethod()">← Back</button>
+                    <h2>Select a Service</h2>
+                </div>
+                <div id="service-list" class="service-categories"></div>
+            </div>
+            <div id="step-calendar-after-service" class="booking-step hidden">
+                <div class="step-header">
+                    <button class="back-btn" onclick="backToService()">← Back</button>
+                    <h2>Select a Date for <span id="selected-service-name"></span></h2>
+                </div>
+                <div id="calendar-container-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
