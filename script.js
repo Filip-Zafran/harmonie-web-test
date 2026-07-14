@@ -609,20 +609,30 @@ function renderCalendar(containerId, onSelectCallback) {
 
     window.showSubcategoryFilters = function(category, containerId) {
         const container = document.getElementById('subcategoryFilterContainer');
-        if (!container) return;
+        console.log('showSubcategoryFilters - container:', container, 'category:', category);
+
+        if (!container) {
+            console.log('Container not found!');
+            return;
+        }
 
         if (!category || !services[category]) {
+            console.log('No category or services found');
             container.innerHTML = '';
             return;
         }
 
         let html = '<div class="subcategory-filters">';
         services[category].forEach(subcategory => {
-            html += `<button class="subcategory-filter-btn" onclick="setSubcategoryFilter('${subcategory}', this)">${subcategory}</button>`;
+            const escapedSubcategory = subcategory.replace(/'/g, "\\'");
+            html += `<button class="subcategory-filter-btn" onclick="setSubcategoryFilter('${escapedSubcategory}', this)">${subcategory}</button>`;
         });
         html += '</div>';
 
+        console.log('Setting innerHTML with buttons for:', category);
+        console.log('HTML:', html);
         container.innerHTML = html;
+        console.log('Container innerHTML updated. Children count:', container.children.length);
     };
 
     window.setSubcategoryFilter = function(subcategory, element) {
