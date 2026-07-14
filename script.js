@@ -641,6 +641,10 @@ function renderCalendar(containerId, onSelectCallback) {
     window.setSubcategoryFilter = function(subcategory, element) {
         console.log('Subcategory selected:', subcategory);
 
+        // Store selected subcategory
+        window.selectedSubcategory = subcategory;
+        window.selectedSubcategoryElement = element;
+
         // Update active state with red styling
         document.querySelectorAll('.subcategory-filter-btn').forEach(btn => {
             btn.classList.remove('active');
@@ -658,6 +662,18 @@ function renderCalendar(containerId, onSelectCallback) {
 
         // Redraw calendar
         drawCalendar(currentDate);
+
+        // Re-apply active state after drawCalendar clears it
+        setTimeout(function() {
+            const buttons = document.querySelectorAll('.subcategory-filter-btn');
+            buttons.forEach(btn => {
+                if (btn.textContent.trim() === subcategory) {
+                    btn.classList.add('active');
+                }
+            });
+            // Re-show practitioners
+            showPractitionersForSubcategory(practitionersForSubcategory, subcategory);
+        }, 10);
     };
 
     window.showPractitionersForSubcategory = function(practitionersList, subcategory) {
