@@ -514,7 +514,7 @@ body {
 .service-category {
     background: var(--bg-light);
     border-radius: 8px;
-    padding: 25px;
+    padding: 25px 25px 25px 25px;
     border: 1px solid #ddd;
     transition: all 0.3s ease;
 }
@@ -620,7 +620,6 @@ body {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    overflow: visible;
     border: 1.5px solid var(--primary-color);
     cursor: pointer;
     transition: all 0.3s ease;
@@ -629,8 +628,8 @@ body {
 }
 
 .practitioner-circle-small:hover {
-    transform: scale(2);
-    box-shadow: 0 4px 16px rgba(196, 165, 123, 0.6);
+    transform: scale(1.8);
+    box-shadow: 0 2px 12px rgba(196, 165, 123, 0.8);
     z-index: 10;
 }
 
