@@ -1028,7 +1028,6 @@ body {
     flex-wrap: wrap;
     gap: 8px;
     position: sticky;
-    top: 190px;
     background: var(--bg-light);
     animation: slideDown 0.3s ease;
 }
