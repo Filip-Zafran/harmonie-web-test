@@ -590,6 +590,16 @@ function renderCalendar(containerId, onSelectCallback) {
             hidePractitionerDropdown();
         }
         drawCalendar(currentDate);
+
+        // Reapply active state after redrawing calendar
+        if (selectedFilter !== null) {
+            const buttons = document.querySelectorAll(`#${containerId} .filter-btn`);
+            buttons.forEach(btn => {
+                if (btn.textContent.trim() === selectedFilter) {
+                    btn.classList.add('active');
+                }
+            });
+        }
     };
 
     window.selectCalendarDate = function(date, callback) {

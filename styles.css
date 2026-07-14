@@ -778,12 +778,12 @@ body {
 }
 
 .filter-btn.active {
-    background: #e74c3c !important;
-    color: var(--white) !important;
+    background-color: #e74c3c !important;
+    color: white !important;
     border-color: #e74c3c !important;
     box-shadow: 0 6px 16px rgba(231, 76, 60, 0.4) !important;
-    transform: translateY(-3px);
-    font-weight: 700;
+    transform: translateY(-3px) !important;
+    font-weight: 700 !important;
 }
 
 /* Calendar Legend */
