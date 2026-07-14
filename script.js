@@ -863,26 +863,7 @@ function showAvailablePractitioners(selectedDate) {
         <div class="practitioners-panel-content" id="practitionersContent">
     `;
 
-    if (availablePractitioners.length === 0) {
-        html += `<div class="no-available">No other practitioners available for this service and date.</div>`;
-    } else {
-        availablePractitioners.forEach(practitioner => {
-            html += `
-                <div class="practitioner-availability-card">
-                    <div class="card-image">
-                        <img src="/${practitioner.image}" alt="${practitioner.name}">
-                    </div>
-                    <div class="card-details">
-                        <h4>${practitioner.name}</h4>
-                        <p class="specialization">${practitioner.specialization}</p>
-                        <button class="btn-select" onclick="selectPractitioner('${practitioner.name}')">Select</button>
-                    </div>
-                </div>
-            `;
-        });
-    }
-
-    html += `</div>`;
+    html += `<div class="no-available">Select a category and subcategory to see practitioners</div></div>`;
     panel.innerHTML = html;
     panel.classList.remove('hidden');
 }
@@ -919,17 +900,11 @@ function filterPractitionersByCategory(category, dateISOString) {
         }
 
         // Clear practitioners - only show after subcategory is selected
-        document.getElementById('practitionersContent').innerHTML = '';
+        document.getElementById('practitionersContent').innerHTML = '<div class="no-available">Select a subcategory to see practitioners</div>';
     } else if (subcategoryContainer) {
         subcategoryContainer.classList.add('hidden');
-
-        // If "All" is selected, show all practitioners
-        if (category === null) {
-            let practitioners_to_show = practitioners.filter(p =>
-                p.services.includes(serviceName) && p.name !== currentPractitioner
-            );
-            updatePractitionersDisplay(practitioners_to_show);
-        }
+        // Clear practitioners when "All" is selected
+        document.getElementById('practitionersContent').innerHTML = '<div class="no-available">Select a category and subcategory to see practitioners</div>';
     }
 }
 
