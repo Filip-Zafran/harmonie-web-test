@@ -620,7 +620,7 @@ body {
 /* Subcategory Filter Container */
 .subcategory-filter-container {
     width: 100% !important;
-    margin: 0 0 20px 0 !important;
+    margin: -5px 0 20px 0 !important;
     padding: 20px !important;
     display: block !important;
     visibility: visible !important;
@@ -629,7 +629,7 @@ body {
     z-index: 999 !important;
     background: #ffcccc !important;
     border: 3px solid red !important;
-    border-radius: 8px !important;
+    border-radius: 0 0 8px 8px !important;
     clear: both !important;
     float: none !important;
     overflow: visible !important;
