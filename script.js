@@ -132,7 +132,7 @@ const practitioners = [
     },
     {
         name: 'Chin Ling',
-        image: 'images/chinling.png',
+        image: 'images/ching-ling.png',
         services: ['Signature Full Body Massage', 'Deep Tissue Upper Body & Neck', 'Face & Neck Massage', 'Lymphatic Drainage Massage', 'Lomi Lomi Nui Massage (Women Only)', 'Foot Reflexology', 'Pregnancy Massage'],
         specialization: 'Massage Therapy',
         categories: ['Massage', 'Women\'s Health']
