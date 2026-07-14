@@ -808,8 +808,10 @@ function showAvailablePractitioners(selectedDate) {
     // Build HTML for available practitioners
     let html = `
         <div class="practitioners-panel-header">
-            <h3>Available Practitioners</h3>
-            <p class="availability-date">${selectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            <div>
+                <h3>Available Practitioners</h3>
+                <p class="availability-date">${selectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            </div>
             <button class="close" onclick="closePractitionersPanel()">×</button>
         </div>
         <div class="practitioners-panel-content">

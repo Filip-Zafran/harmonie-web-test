@@ -876,6 +876,14 @@ body {
     position: sticky;
     top: 0;
     background: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.practitioners-panel-header > div {
+    flex: 1;
 }
 
 .practitioners-panel-header h3 {
@@ -886,16 +894,14 @@ body {
 }
 
 .availability-date {
-    margin: 0 0 15px 0;
+    margin: 0;
     font-size: 13px;
     color: #999;
     font-weight: 600;
 }
 
 .practitioners-panel-header .close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
+    flex-shrink: 0;
     background: none;
     border: none;
     font-size: 28px;
@@ -904,6 +910,14 @@ body {
     padding: 0;
     width: 30px;
     height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.practitioners-panel-header .close:hover {
+    color: var(--text-dark);
 }
 
 .practitioners-panel-content {
