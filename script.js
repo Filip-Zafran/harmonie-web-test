@@ -565,9 +565,15 @@ function renderCalendar(containerId, onSelectCallback) {
         selectedFilter = filter;
         document.querySelectorAll(`#${containerId} .filter-btn`).forEach(btn => {
             btn.classList.remove('active');
+            btn.style.color = '';
+            btn.style.borderColor = '';
+            btn.style.background = '';
         });
         if (element) {
             element.classList.add('active');
+            element.style.background = '#e74c3c';
+            element.style.color = 'white';
+            element.style.borderColor = '#e74c3c';
             // Hide practitioner dropdown when any filter is clicked
             hidePractitionerDropdown();
         }
