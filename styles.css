@@ -583,8 +583,8 @@ body {
 .subcategory-header {
     display: flex;
     align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
+    gap: 8px;
+    flex-wrap: nowrap;
 }
 
 .subcategory-name {
@@ -597,7 +597,7 @@ body {
     font-size: 14px;
     transition: color 0.2s;
     font-weight: 500;
-    min-width: 150px;
+    flex-shrink: 0;
 }
 
 .subcategory-name:hover {
@@ -608,27 +608,30 @@ body {
 /* Subcategory Practitioners (Inline) */
 .subcategory-practitioners-inline {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-wrap: nowrap;
+    gap: 4px;
     align-items: center;
+    overflow: visible;
 }
 
 /* Practitioners Circles - Small */
 .practitioner-circle-small {
     position: relative;
-    width: 45px;
-    height: 45px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid var(--primary-color);
+    overflow: visible;
+    border: 1.5px solid var(--primary-color);
     cursor: pointer;
     transition: all 0.3s ease;
     flex-shrink: 0;
+    z-index: 1;
 }
 
 .practitioner-circle-small:hover {
-    transform: scale(1.15);
-    box-shadow: 0 4px 12px rgba(196, 165, 123, 0.4);
+    transform: scale(2);
+    box-shadow: 0 4px 16px rgba(196, 165, 123, 0.6);
+    z-index: 10;
 }
 
 .practitioner-circle-small img {
@@ -636,6 +639,7 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
+    border-radius: 50%;
 }
 
 .practitioner-name-small {
@@ -652,6 +656,7 @@ body {
     white-space: nowrap;
     opacity: 0;
     transition: all 0.2s;
+    pointer-events: none;
 }
 
 .practitioner-circle-small:hover .practitioner-name-small {
