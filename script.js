@@ -261,33 +261,47 @@ function getColorForCategory(category) {
     return categoryColors[category];
 }
 
-// Mock booking data (in production, this would come from backend)
+// Mock booking data with specific services by date
 const mockBookings = {
     '2025-07-01': ['Massage'],
     '2025-07-02': ['Women\'s Health', 'Osteopathy'],
     '2025-07-03': ['Talking Therapy'],
+    '2025-07-04': ['Massage'],
     '2025-07-05': ['Massage', 'Talking Therapy'],
-    '2025-07-07': ['Osteopathy'],
-    '2025-07-08': ['Women\'s Health', 'Massage', 'Talking Therapy'],
-    '2025-07-09': ['Osteopathy', 'Massage'],
-    '2025-07-11': ['Women\'s Health'],
-    '2025-07-12': ['Talking Therapy', 'Osteopathy'],
+    '2025-07-06': ['Osteopathy'],
+    '2025-07-07': ['Women\'s Health'],
+    '2025-07-08': ['Massage', 'Talking Therapy'],
+    '2025-07-09': ['Osteopathy'],
+    '2025-07-10': ['Women\'s Health', 'Massage'],
+    '2025-07-11': ['Talking Therapy'],
+    '2025-07-12': ['Osteopathy', 'Women\'s Health'],
+    '2025-07-13': ['Massage'],
     '2025-07-14': ['Massage'],
-    '2025-07-15': ['Women\'s Health', 'Massage'],
-    '2025-07-16': ['Osteopathy', 'Talking Therapy', 'Massage'],
-    '2025-07-17': ['Women\'s Health'],
-    '2025-07-18': ['Osteopathy'],
-    '2025-07-19': ['Massage', 'Women\'s Health'],
-    '2025-07-21': ['Talking Therapy'],
-    '2025-07-22': ['Talking Therapy', 'Massage', 'Osteopathy'],
+    '2025-07-15': ['Massage'],
+    '2025-07-16': [],
+    '2025-07-17': ['Massage', 'Women\'s Health'],
+    '2025-07-18': ['Massage', 'Women\'s Health', 'Osteopathy', 'Talking Therapy'],
+    '2025-07-19': [],
+    '2025-07-20': ['Talking Therapy', 'Osteopathy'],
+    '2025-07-21': ['Massage', 'Women\'s Health'],
+    '2025-07-22': ['Talking Therapy', 'Massage'],
     '2025-07-23': ['Women\'s Health', 'Osteopathy'],
-    '2025-07-24': ['Massage'],
-    '2025-07-25': ['Women\'s Health', 'Talking Therapy'],
-    '2025-07-26': ['Osteopathy', 'Massage'],
-    '2025-07-28': ['Talking Therapy', 'Women\'s Health'],
-    '2025-07-29': ['Massage', 'Osteopathy'],
-    '2025-07-30': ['Women\'s Health'],
-    '2025-07-31': ['Talking Therapy', 'Massage', 'Women\'s Health'],
+    '2025-07-24': ['Massage', 'Talking Therapy'],
+    '2025-07-25': ['Osteopathy'],
+    '2025-07-26': ['Women\'s Health', 'Massage'],
+    '2025-07-27': ['Talking Therapy'],
+    '2025-07-28': ['Massage', 'Osteopathy'],
+    '2025-07-29': ['Women\'s Health', 'Talking Therapy'],
+    '2025-07-30': ['Massage'],
+    '2025-07-31': ['Talking Therapy', 'Women\'s Health', 'Osteopathy'],
+};
+
+// Mock time slots for each category (in production, would come from backend)
+const mockSlots = {
+    'Massage': ['09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM'],
+    'Women\'s Health': ['09:30 AM', '10:30 AM', '11:30 AM', '01:00 PM', '02:30 PM', '03:30 PM'],
+    'Osteopathy': ['09:00 AM', '10:30 AM', '12:00 PM', '02:00 PM', '03:30 PM', '05:00 PM'],
+    'Talking Therapy': ['10:00 AM', '11:00 AM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM']
 };
 
 // Calendar rendering
@@ -405,9 +419,7 @@ function renderCalendar(containerId, onSelectCallback) {
     window.selectCalendarDate = function(date, callback) {
         selectedDate = date;
         drawCalendar(currentDate);
-        setTimeout(() => {
-            window[callback](date);
-        }, 100);
+        showTimeSlots(date, containerId);
     };
 
     window.previousMonth = function() {
@@ -421,6 +433,69 @@ function renderCalendar(containerId, onSelectCallback) {
     };
 
     drawCalendar(currentDate);
+}
+
+// Time slots display
+function showTimeSlots(date, containerId) {
+    const dateString = date.toISOString().split('T')[0];
+    const dayBookings = mockBookings[dateString] || [];
+
+    const slotsPanel = document.querySelector('.time-slots-panel');
+    if (!slotsPanel) return;
+
+    const formattedDate = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    let html = `
+        <div class="slots-header">
+            <h3>${formattedDate}</h3>
+            <button class="close-slots" onclick="closeTimeSlots()">×</button>
+        </div>
+    `;
+
+    if (dayBookings.length === 0) {
+        html += '<p class="no-slots">No services available on this date</p>';
+    } else {
+        dayBookings.forEach(category => {
+            const color = getColorForCategory(category);
+            const slots = mockSlots[category] || [];
+
+            html += `
+                <div class="category-slots">
+                    <div class="slots-category-title" style="border-left: 4px solid ${color}; background: rgba(${hexToRgb(color)}, 0.1);">
+                        <div class="category-dot" style="background: ${color}"></div>
+                        <span>${category}</span>
+                    </div>
+                    <div class="slots-grid">
+                        ${slots.map(time => `
+                            <button class="time-slot" style="border-color: ${color}; color: ${color};" onclick="selectTimeSlot('${category}', '${time}')">
+                                ${time}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    slotsPanel.innerHTML = html;
+    slotsPanel.classList.remove('hidden');
+}
+
+function closeTimeSlots() {
+    const slotsPanel = document.querySelector('.time-slots-panel');
+    if (slotsPanel) {
+        slotsPanel.classList.add('hidden');
+    }
+}
+
+function selectTimeSlot(category, time) {
+    alert(`Selected: ${category} at ${time}`);
+    closeTimeSlots();
+}
+
+// Helper function to convert hex to rgb
+function hexToRgb(hex) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : '0, 0, 0';
 }
 
 // Completion function

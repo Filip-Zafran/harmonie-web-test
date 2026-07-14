@@ -775,6 +775,149 @@ body {
     border: 2px solid #ddd;
 }
 
+/* Time Slots Panel */
+.time-slots-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 350px;
+    height: 100vh;
+    background: var(--white);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+    z-index: 1001;
+    animation: slideInRight 0.3s ease;
+}
+
+.time-slots-panel.hidden {
+    display: none;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.slots-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 2px solid #eee;
+    position: sticky;
+    top: 0;
+    background: var(--white);
+}
+
+.slots-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-dark);
+}
+
+.close-slots {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.close-slots:hover {
+    color: var(--text-dark);
+}
+
+.no-slots {
+    padding: 40px 20px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}
+
+.category-slots {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.slots-category-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.category-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.slots-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.time-slot {
+    padding: 12px 10px;
+    border: 2px solid;
+    border-radius: 6px;
+    background: var(--white);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.time-slot:hover {
+    background: rgba(196, 165, 123, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Time Slots Panel */
+@media (max-width: 768px) {
+    .time-slots-panel {
+        width: 100%;
+        right: auto;
+        bottom: 0;
+        height: 50vh;
+        max-height: 50vh;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+        animation: slideInUp 0.3s ease;
+    }
+
+    @keyframes slideInUp {
+        from {
+            transform: translateY(100%);
+        }
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    .slots-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 .date-message {
     text-align: center;
     margin-top: 20px;
