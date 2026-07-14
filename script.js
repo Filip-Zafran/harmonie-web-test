@@ -596,6 +596,9 @@ function renderCalendar(containerId, onSelectCallback) {
 
         drawCalendar(currentDate);
 
+        // Re-show subcategories after drawCalendar (since it clears the container)
+        showSubcategoryFilters(filter, containerId);
+
         // Reapply active state after redrawing calendar
         if (selectedFilter !== null) {
             const buttons = document.querySelectorAll(`#${containerId} .filter-btn`);
