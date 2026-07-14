@@ -952,10 +952,10 @@ body {
 }
 
 .category-filter-btn.active {
-    background: var(--primary-color);
+    background: #e74c3c;
     color: var(--white);
-    border-color: var(--primary-color);
-    box-shadow: 0 4px 12px rgba(196, 165, 123, 0.3);
+    border-color: #e74c3c;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
 }
 
 .practitioners-panel-content {
