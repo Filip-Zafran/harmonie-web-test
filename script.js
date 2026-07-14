@@ -487,8 +487,9 @@ function renderCalendar(containerId, onSelectCallback) {
 
         uniqueCategories.forEach(category => {
             const color = getColorForCategory(category);
+            const escapedCategory = category.replace(/'/g, "\\'");
             html += `
-                <button class="filter-btn" onclick="setCalendarFilter('${category}', this)"
+                <button class="filter-btn" onclick="setCalendarFilter('${escapedCategory}', this)"
                         style="border-color: ${color}; color: ${color};">
                     ${category}
                 </button>
@@ -579,9 +580,10 @@ function renderCalendar(containerId, onSelectCallback) {
         if (element) {
             console.log('Setting active styles on:', element.textContent);
             element.classList.add('active');
-            element.style.background = '#e74c3c !important';
-            element.style.color = 'white !important';
-            element.style.borderColor = '#e74c3c !important';
+            element.style.background = '#e74c3c';
+            element.style.color = 'white';
+            element.style.borderColor = '#e74c3c';
+            element.style.fontWeight = '700';
             console.log('Applied styles - background:', element.style.background, 'color:', element.style.color);
             // Hide practitioner dropdown when any filter is clicked
             hidePractitionerDropdown();
