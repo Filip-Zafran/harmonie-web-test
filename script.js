@@ -327,8 +327,28 @@ function renderServiceCategories(containerId, onSelectCallback) {
     Object.entries(services).forEach(([category, servicesList]) => {
         const categoryDiv = document.createElement('div');
         categoryDiv.className = 'service-category';
-        categoryDiv.innerHTML = `
-            <h3>${category}</h3>
+
+        // Get practitioners for this category
+        const practitionersInCategory = practitioners.filter(p => p.categories.includes(category));
+
+        let html = `<h3>${category}</h3>`;
+
+        // Show practitioner circles for this category
+        if (practitionersInCategory.length > 0) {
+            html += '<div class="practitioners-circles">';
+            practitionersInCategory.forEach(practitioner => {
+                html += `
+                    <div class="practitioner-circle" title="${practitioner.name}" onclick="selectServiceAndPractitioner('${category}', '${practitioner.name}')">
+                        <img src="${practitioner.image}" alt="${practitioner.name}">
+                        <span class="practitioner-name">${practitioner.name}</span>
+                    </div>
+                `;
+            });
+            html += '</div>';
+        }
+
+        // Show individual services
+        html += `
             <ul>
                 ${servicesList.map(service => `
                     <li>
@@ -337,8 +357,16 @@ function renderServiceCategories(containerId, onSelectCallback) {
                 `).join('')}
             </ul>
         `;
+
+        categoryDiv.innerHTML = html;
         container.appendChild(categoryDiv);
     });
+}
+
+// Select service and practitioner
+function selectServiceAndPractitioner(category, practitionerName) {
+    alert(`Selected: ${practitionerName} for ${category} services`);
+    // In a real implementation, this would filter the calendar to show only this practitioner's availability
 }
 
 // Color mapping for categories
