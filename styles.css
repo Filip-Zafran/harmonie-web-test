@@ -620,22 +620,25 @@ body {
 /* Subcategory Filter Container */
 .subcategory-filter-container {
     width: 100%;
-    margin: 0;
-    padding: 0;
+    margin: 20px 0 !important;
+    padding: 15px !important;
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
     position: relative;
     z-index: 999 !important;
+    background: #ffeeee !important;
+    border: 2px solid red !important;
+    min-height: 50px;
 }
 
 .subcategory-filters {
     display: flex !important;
     flex-wrap: wrap;
     gap: 8px;
-    padding: 15px 0 0 0;
-    margin: 0;
-    background: var(--white);
+    padding: 10px 0;
+    margin: 0 !important;
+    background: var(--white) !important;
     border-radius: 8px;
     width: 100%;
     position: relative;
