@@ -568,12 +568,8 @@ function renderCalendar(containerId, onSelectCallback) {
         });
         if (element) {
             element.classList.add('active');
-            // Show practitioner dropdown if a category is selected
-            if (filter) {
-                showPractitionerDropdown(filter, element);
-            } else {
-                hidePractitionerDropdown();
-            }
+            // Hide practitioner dropdown when any filter is clicked
+            hidePractitionerDropdown();
         }
         drawCalendar(currentDate);
     };
