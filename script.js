@@ -385,6 +385,10 @@ function renderServiceCategories(containerId, onSelectCallback) {
         servicesList.forEach(subcategory => {
             html += `<div class="subcategory-item">`;
 
+            // Escape special characters early
+            const escapedSubcategory = subcategory.replace(/'/g, "\\'");
+            const escapedCategory = category.replace(/'/g, "\\'");
+
             // Get services that map to this subcategory
             const servicesInSubcategory = serviceSubcategoryMap[subcategory] || [];
 
@@ -408,9 +412,6 @@ function renderServiceCategories(containerId, onSelectCallback) {
                 });
                 practitionersHtml += '</div>';
             }
-
-            const escapedSubcategory = subcategory.replace(/'/g, "\\'");
-            const escapedCategory = category.replace(/'/g, "\\'");
 
             html += `
                 <div class="subcategory-header">
